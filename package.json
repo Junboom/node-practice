@@ -4,7 +4,8 @@
   "description": "node practice",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "node_modules/.bin/mocha api/user/user.spec.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/Junboom/node-practice/issues"
   },
-  "homepage": "https://github.com/Junboom/node-practice#readme"
+  "homepage": "https://github.com/Junboom/node-practice#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.2",
+    "should": "^13.2.3",
+    "supertest": "^4.0.2"
+  }
 }
