@@ -3,6 +3,25 @@ const request = require('supertest');
 const app = require('../../app');
 
 describe('GET /users', () => {
+  before('sync database', () => {
+    syncDatabase().then(() => {
+      done();
+    });
+  });
+
+  const users = [
+    {name: 'alice'},
+    {name: 'bek'},
+    {name: 'chris'}
+  ];
+  before('insert 3 users into database', (done) => {
+    models.User.bulkCreate(users).then(() => done());
+  });
+
+  after('clear up database', (done) => {
+    syncDatabase().then(() => done());
+  });
+
   it('should return 200 status code', (done) => {
     request(app)
         .get('/users')
@@ -27,5 +46,20 @@ describe('GET /users', () => {
          });
          done();
        });
+  });
+});
+
+
+describe('PUT /users/:id', () => {
+  it.only('should return 200 status code', (done) => {
+    request(app)
+        .put('/users/1')
+        .send({
+          name: 'foo'
+        })
+        .end((err, res) => {
+          if (err) throw err;
+          done();
+        });
   });
 });
